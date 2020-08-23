@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--使用配置文件的方式整合mybatis-->
+<!--这里的namespace是此ArticleMapper.xml文件的全路径-->
+<mapper namespace="com.ithemia.mapper.ArticleMapper">
+    <!--public Article selectArticle(Integer id);    id就是方法名-->
+    <select id="selectArticle" resultType="com.ithemia.domain.Article">
+        select * from t_article where id=#{id}
+    </select>
+
+    <!-- 2、根据文章id更新文章信息 -->
+    <update id="upArticle" parameterType="Article">
+        UPDATE t_article
+        <set>
+            <if test="title !=null and title !=''">
+                title=#{title},
+            </if>
+            <if test="content !=null and content !=''">
+                content=#{content}
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <!--插入信息-->
+    <insert id="insertArticle">
+        insert into t_article (title,content)
+        values (#{title},#{content})
+    </insert>
+
+    <!--删除信息-->
+    <delete id="deleteArticle">
+        delete from t_article where id = #{id}
+    </delete>
+
+</mapper>
